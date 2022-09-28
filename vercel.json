@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/vue",
+      "destination": "https://lv-vue.vercel.app/vue"
+    },
+    {
+      "source": "/vue/:match*",
+      "destination": "https://lv-vue.vercel.app/vue/:match*"
+    }
+  ]
+}

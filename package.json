@@ -1,0 +1,51 @@
+{
+  "name": "nuxt3-starter",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jagoncalves14/nuxt3-starter"
+  },
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "husky install",
+    "lint": "eslint --ext \".ts,.js,.vue\" --ignore-path .eslintignore .",
+    "lintfix": "eslint --fix --ext \".ts,.js,.vue\" --ignore-path .eslintignore .",
+    "story": "histoire dev",
+    "story:build": "histoire build"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@histoire/plugin-nuxt": "^0.10.7",
+    "@histoire/plugin-vue": "^0.10.7",
+    "@nuxt/content": "2.1.0",
+    "@nuxt/test-utils": "npm:@nuxt/test-utils-edge",
+    "@nuxtjs/eslint-config-typescript": "^10.0.0",
+    "@nuxtjs/eslint-module": "3.1.0",
+    "@nuxtjs/supabase": "^0.1.25",
+    "@nuxtjs/svg": "^0.4.0",
+    "@nuxtjs/tailwindcss": "^5.3.2",
+    "eslint": "^8.23.1",
+    "eslint-plugin-nuxt": "^3.2.0",
+    "histoire": "^0.10.7",
+    "husky": "^8.0.1",
+    "nuxt": "3.0.0-rc.10",
+    "postcss": "8.4.14",
+    "postcss-loader": "^7.0.0",
+    "sass": "^1.54.9",
+    "sass-loader": "^13.0.2",
+    "typescript": "^4.8.3",
+    "unplugin-icons": "0.14.7",
+    "unplugin-vue-components": "0.21.0",
+    "vitest": "^0.23.2",
+    "vuetify": "3.0.0-beta.11"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,vue,html}": [
+      "pnpm lintfix"
+    ]
+  }
+}
