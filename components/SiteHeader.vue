@@ -19,7 +19,7 @@ const client = useSupabaseClient()
 
       <NuxtLink
         v-if="user"
-        to="/notes"
+        to="/todos"
         class="px-2 py-1 ml-auto text-sm font-medium rounded hover:bg-charcoal-600 hover:text-white"
       >
         Profile

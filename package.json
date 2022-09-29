@@ -21,6 +21,7 @@
     "@commitlint/config-conventional": "^17.0.3",
     "@histoire/plugin-nuxt": "^0.10.7",
     "@histoire/plugin-vue": "^0.10.7",
+    "@mdi/font": "^7.0.96",
     "@nuxt/content": "2.1.0",
     "@nuxt/test-utils": "npm:@nuxt/test-utils-edge",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
@@ -41,6 +42,7 @@
     "unplugin-icons": "0.14.7",
     "unplugin-vue-components": "0.21.0",
     "vitest": "^0.23.2",
+    "vue-query": "^1.26.0",
     "vuetify": "3.0.0-beta.11"
   },
   "lint-staged": {
