@@ -32,6 +32,8 @@ const todosList = ref<Todo[]>([])
 const isLoadingCreateTodo = ref(null)
 const createTodo = async () => {
   try {
+    isLoadingCreateTodo.value = true
+
     const { data, error } = await useSupabaseClient()
       .from<Todo>('todos')
       .insert([
@@ -42,16 +44,19 @@ const createTodo = async () => {
       throw error
     }
     todosList.value.push(data[0])
-    isLoadingCreateTodo.value = false
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error creating todo: ', error.message)
+  } finally {
+    isLoadingCreateTodo.value = false
   }
 }
 
 const isLoadingGetTodos = ref(null)
 const getTodosList = async () => {
   try {
+    isLoadingGetTodos.value = true
+
     const { data, error } = await useSupabaseClient()
       .from<Todo>('todos')
       .select('*')
@@ -61,10 +66,11 @@ const getTodosList = async () => {
       throw error
     }
     todosList.value = data
-    isLoadingGetTodos.value = false
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error fetching todos: ', error.message)
+  } finally {
+    isLoadingGetTodos.value = false
   }
 }
 
@@ -118,23 +124,24 @@ const deleteTodo = async (id: number) => {
     </h1>
     <form class="flex flex-col gap-2 mt-4" @submit.prevent="() => createTodo()">
       <input v-model="todoName" :disabled="isLoadingCreateTodo" placeholder="Name your task" class="p-2 text-white rounded bg-charcoal-600 disabled:opacity-50">
-      <button :disabled="isLoadingCreateTodo" type="submit" class="p-2 font-medium text-white bg-green-500 rounded hover:bg-green-400 disabled:opacity-50">
-        <span>Submit</span>
+      <button :disabled="isLoadingCreateTodo || !todoName?.length" type="submit" class="p-2 font-medium text-white bg-green-500 rounded hover:bg-green-400 disabled:opacity-50">
+        <LoadingSpinner v-if="isLoadingCreateTodo" class="mx-auto" colors="fill-green-500 text-white" />
+        <span v-else>Submit</span>
       </button>
     </form>
 
     <h1 class="mt-8 text-2xl font-semibold text-white">
       Your todos
     </h1>
+
     <div class="flex flex-col gap-4 mt-4" :class="{ 'opacity-50': isLoadingGetTodos }">
-      <div v-for="todo in todosList" :key="todo.id" class="p-2 px-4 bg-gray-700 rounded cursor-pointer hover:opacity-70 d-flex justify-space-between">
+      <LoadingSpinner v-if="isLoadingGetTodos || isLoadingGetTodos === null" class="mx-auto" />
+      <div v-for="todo in todosList" v-else :key="todo.id" class="p-2 px-4 bg-gray-700 rounded cursor-pointer hover:opacity-70 d-flex justify-space-between">
         <span class="block" :class="{ 'line-through': todo.is_complete }" @click="toggleTodo(todo.id, !todo.is_complete)">
           {{ todo.task }}
         </span>
         <button class="text-white hover:opacity-70" @click="deleteTodo(todo.id)">
-          <v-icon :size="16">
-            mdi-close
-          </v-icon>
+          <v-icon :size="16" icon="mdi:mdi-close" />
         </button>
       </div>
     </div>
